@@ -1,14 +1,12 @@
 import java.io.File
-import kotlin.math.min
-fun isValid(word: String): Boolean {
-    return word.length == 5 && word.all { it.isLetter() }
-}
 
-fun readWordList(filename: String): MutableList<String> =
-    File(filename).readLines()
-        .map { it.trim().lowercase() }
-        .filter { isValid(it) }
-        .toMutableList()
+fun isValid(word: String): Boolean = word.length == 5 && word.all { it.isLetter() }
+
+fun readWordList(filename: String): MutableList<String> = File(filename)
+    .readLines()
+    .map { it.trim().lowercase() }
+    .filter { isValid(it) }
+    .toMutableList()
 
 fun pickRandomWord(words: MutableList<String>): String {
     require(words.isNotEmpty()) { "word list is empty" }
@@ -32,6 +30,7 @@ fun obtainGuess(attempt: Int, dictionary: Set<String>? = null): String {
         }
     }
 }
+
 fun evaluateGuess(guess: String, target: String): List<Int> {
     if (guess.length != 5 || target.length != 5) {
         throw IllegalArgumentException("Both guess and target must be 5 letters.")
@@ -62,7 +61,6 @@ fun evaluateGuess(guess: String, target: String): List<Int> {
     return res
 }
 
-
 fun displayGuess(guess: String, matches: List<Int>) {
     require(matches.size == 5)
     for (i in 0 until 5) {
@@ -74,4 +72,3 @@ fun displayGuess(guess: String, matches: List<Int>) {
     }
     println()
 }
-
